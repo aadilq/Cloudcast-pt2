@@ -25,7 +25,11 @@ class WeatherForecastService{
         let url = URL(string: "https://api.open-meteo.com/v1/forecast?\(parameters)")!
         //Create a network task that will fetch data from this URL, and when it's done, call this function with the results
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
-
+            //Check for network errors, if there any network errors, make sure to log the error and exit early
+            guard error == nil else{
+                assertionFailure("Error: \(error!.localizedDescription)")
+                return
+            }
             
             
         }
