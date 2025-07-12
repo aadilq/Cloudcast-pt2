@@ -30,9 +30,20 @@ class WeatherForecastService{
                 assertionFailure("Error: \(error!.localizedDescription)")
                 return
             }
+            //Check if the response is a valid HTTP response
+            guard let httpResponse = response as? HTTPURLResponse else{
+                assertionFailure("Invalid Response")
+                return
+            }
+            //Verify that data exists and the HTTP status code is 200 (success).
+            guard let data = data, httpResponse.statusCode == 200 else{
+                assertionFailure("Invalid response status code: \(httpResponse.statusCode)")
+                return
+            }
             
             
         }
+        task.resume()
 
         
     }
