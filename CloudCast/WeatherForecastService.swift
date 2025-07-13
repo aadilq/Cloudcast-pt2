@@ -40,11 +40,24 @@ class WeatherForecastService{
                 assertionFailure("Invalid response status code: \(httpResponse.statusCode)")
                 return
             }
-            
-            
+           
         }
         task.resume()
 
         
+    }
+    private static func parse(data: Data) -> CurrentWeatherForecast{
+        let jsonDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+        let currentWeather = jsonDictionary["currentWeather"] as! [String: Any]
+        
+        let windSpeed = currentWeather["windspeed"] as! Double
+        
+        let windDirection = currentWeather["windDirection"] as! Double
+        
+        let temperature = currentWeather["temperature"] as! Double
+        
+        let weatherCodeRaw = currentWeather["weathercode"] as! Int
+        
+        return CurrentWeatherForecast(windSpeed: windSpeed, windDirection: windDirection, temperature: temperature, weatherCodeRaw: weatherCodeRaw)
     }
 }
