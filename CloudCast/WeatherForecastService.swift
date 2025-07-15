@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CurrentWeatherForecast {
+struct CurrentWeatherForecast: Decodable {
   let windSpeed: Double
   let windDirection: Double
   let temperature: Double
@@ -15,6 +15,12 @@ struct CurrentWeatherForecast {
   var weatherCode: WeatherCode {
     return WeatherCode(rawValue: weatherCodeRaw) ?? .clearSky
   }
+    private enum CodingKeys: String, CodingKey {
+        case windSpeed = "windspeed"
+        case windDirection = "winddirection"
+        case temperature = "temperature"
+        case weatherCodeRaw = "weathercode"
+      }
 }
 
 class WeatherForecastService{
@@ -39,6 +45,10 @@ class WeatherForecastService{
             guard let data = data, httpResponse.statusCode == 200 else{
                 assertionFailure("Invalid response status code: \(httpResponse.statusCode)")
                 return
+            }
+            let forecast = parse(data: data)
+            DispatchQueue.main.async {
+                completion?(forecast)
             }
            
         }
