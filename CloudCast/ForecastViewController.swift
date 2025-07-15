@@ -41,6 +41,21 @@ class ForecastViewController: UIViewController {
         guard locationIndex < locations.count else {return}
         let location = locations[locationIndex]
         locationLabel.text = location.name
+        
+        WeatherForecastService.fetchForecast(latitude: location.latitude, longitude: location.longitude) { forecast in
+                self.configure(with: forecast)
+            }
+    }
+    
+    private func configure(with forecast: CurrentWeatherForecast){
+        forecastImageView.image = forecast.weatherCode.image
+        descriptionLabel.text = forecast.weatherCode.description
+        temperatureLabel.text = "\(forecast.temperature)"
+        windspeedLabel.text = "\(forecast.windSpeed)mph"
+        windDirectionLabel.text = "\(forecast.windDirection)°"
+        let Dateformatter = DateFormatter()
+        Dateformatter.dateFormat = "MMMM d, yyyy"
+        dateLabel.text = Dateformatter.string(from: Date())
     }
   
   private func addGradient() {
