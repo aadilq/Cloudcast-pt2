@@ -21,7 +21,11 @@ Cloudcast is my first step into the iOS Development world with a project that wa
 ## Demo
 
 
-https://github.com/user-attachments/assets/57e33978-2b53-460c-9b44-612b9eb8a600
+
+
+https://github.com/user-attachments/assets/ea74c1f0-b5d3-4c6b-a758-1d8823b3a2cf
+
+
 
 
 
