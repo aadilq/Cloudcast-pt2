@@ -7,6 +7,14 @@
 
 import Foundation
 
+struct WeatherAPIResponse: Decodable {
+  let currentWeather: CurrentWeatherForecast
+
+  private enum CodingKeys: String, CodingKey {
+    case currentWeather = "current_weather"
+  }
+}
+
 struct CurrentWeatherForecast: Decodable {
   let windSpeed: Double
   let windDirection: Double
